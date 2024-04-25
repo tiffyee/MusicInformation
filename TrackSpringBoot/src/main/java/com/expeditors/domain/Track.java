@@ -1,26 +1,36 @@
 package com.expeditors.domain;
 
+import org.springframework.lang.NonNull;
+
 import javax.print.attribute.standard.Media;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Track {
     private int id;
+    @NonNull
     private String title;
+    @NonNull
     private String album;
+    @NonNull
     private LocalDate issueDate;
+    @NonNull
     private Duration duration;
+    @NonNull
     private MediaType mediaType;
-    List<Artist> artists;
+    private List<Artist> artists = new ArrayList<>();
 
     public Track(){}
-    public Track(String title, String album, LocalDate issueDate, Duration duration, MediaType mediaType, List<Artist> artists){
+    public Track(String title, String album, LocalDate issueDate, Duration duration, MediaType mediaType,List<Artist> artists){
         setTitle(title);
-        setTitle(album);
+        setAlbum(album);
         setIssueDate(issueDate);
         setDuration(duration);
         setMediaType(mediaType);
+        setArtists(artists);
     }
 
     public int getId() {
@@ -72,11 +82,18 @@ public class Track {
     }
 
     public List<Artist> getArtists() {
-        return artists;
+        return List.copyOf(artists);
     }
 
     public void setArtists(List<Artist> artists) {
-        this.artists = artists;
+        //this.artists.clear();
+        this.artists.addAll(artists);
+        //artists.forEach(this::addArtist);
+    }
+
+    public void addArtist(Artist artist){
+        Objects.requireNonNull(artist);
+        this.artists.add(artist);
     }
 
     @Override
@@ -91,5 +108,7 @@ public class Track {
                 ", artists=" + artists +
                 '}';
     }
+
+
 
 }

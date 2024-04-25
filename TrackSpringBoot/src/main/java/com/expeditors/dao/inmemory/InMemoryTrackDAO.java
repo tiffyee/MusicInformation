@@ -1,7 +1,8 @@
 package com.expeditors.dao.inmemory;
 
-import com.expeditors.dao.TrackDAO;
+import com.expeditors.dao.BaseDAO;
 import com.expeditors.domain.Track;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -11,12 +12,14 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
 
-
-public class InMemoryTrackDAO implements TrackDAO {
+@Repository
+@Profile("inmemtrack")
+public class InMemoryTrackDAO implements BaseDAO<Track> {
 
     private Map<Integer, Track> tracks = new ConcurrentHashMap<>();
     private AtomicInteger nextId = new AtomicInteger(1);
 
+    @Override
     public Track insert(Track newTrack){
         newTrack.setId(nextId.getAndIncrement());
         newTrack.setTitle(newTrack.getTitle());
@@ -42,11 +45,11 @@ public class InMemoryTrackDAO implements TrackDAO {
             Predicate<Track> pr = t -> t.getMediaType().equals(example.getMediaType());
             predicate = predicate == null ? pr : predicate.or(pr);
         }
-        if(example.getIssueDate() != null) {
-            Predicate<Track> pr = t -> t.getIssueDate().getYear().equals(example.getIssueDate().getYear());
-
-            predicate = predicate == null ? pr : predicate.or(pr);
-        }
+//        if(example.getIssueDate() != null) {
+//            Predicate<Track> pr = t -> t.getIssueDate().getYear().equals(example.getIssueDate().getYear());
+//
+//            predicate = predicate == null ? pr : predicate.or(pr);
+//        }
         if(example.getArtists() != null) {
             Predicate<Track> pr = t -> t.getArtists().equals(example.getArtists());
             predicate = predicate == null ? pr : predicate.or(pr);

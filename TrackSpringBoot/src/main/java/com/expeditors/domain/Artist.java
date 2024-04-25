@@ -1,8 +1,18 @@
 package com.expeditors.domain;
 
+import org.springframework.lang.NonNull;
+
+
 public class Artist {
     private int id;
+    @NonNull
     private String name;
+
+    public Artist(){}
+
+    public Artist(String name){
+        setName(name);
+    }
 
     public int getId() {
         return id;
@@ -20,7 +30,11 @@ public class Artist {
         this.name = name;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return "Artist{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
