@@ -23,6 +23,10 @@ public class InMemoryTrackDAO implements BaseDAO<Track> {
     public Track insert(Track newTrack){
         newTrack.setId(nextId.getAndIncrement());
         newTrack.setTitle(newTrack.getTitle());
+//        newTrack.setAlbum(newTrack.getAlbum());
+//        newTrack.setDuration(newTrack.getDuration());
+//        newTrack.setMediaType(newTrack.getMediaType());
+//        newTrack.setArtists(newTrack.getArtists());
         tracks.put(newTrack.getId(),newTrack);
 
         return newTrack;
