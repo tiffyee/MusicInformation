@@ -43,27 +43,27 @@ public class InMemoryTrackDAO implements BaseDAO<Track> {
     @Override
     public List<Track> findAll() { return new ArrayList<>(tracks.values()); }
 
-    public List<Track> findByExample(Track example){
-        Predicate<Track> predicate = null;
-        if(example.getMediaType() != null) {
-            Predicate<Track> pr = t -> t.getMediaType().equals(example.getMediaType());
-            predicate = predicate == null ? pr : predicate.or(pr);
-        }
-//        if(example.getIssueDate() != null) {
-//            Predicate<Track> pr = t -> t.getIssueDate().getYear().equals(example.getIssueDate().getYear());
-//
+//    public List<Track> findByExample(Track example){
+//        Predicate<Track> predicate = null;
+//        if(example.getMediaType() != null) {
+//            Predicate<Track> pr = t -> t.getMediaType().equals(example.getMediaType());
 //            predicate = predicate == null ? pr : predicate.or(pr);
 //        }
-        if(example.getArtists() != null) {
-            Predicate<Track> pr = t -> t.getArtists().equals(example.getArtists());
-            predicate = predicate == null ? pr : predicate.or(pr);
-        }
-
-        predicate = predicate == null ? (t -> true) : predicate;
-
-        List<Track> result = findAll().stream().filter(predicate).toList();
-
-        return result;
-    }
+////        if(example.getIssueDate() != null) {
+////            Predicate<Track> pr = t -> t.getIssueDate().getYear().equals(example.getIssueDate().getYear());
+////
+////            predicate = predicate == null ? pr : predicate.or(pr);
+////        }
+//        if(example.getArtists() != null) {
+//            Predicate<Track> pr = t -> t.getArtists().equals(example.getArtists());
+//            predicate = predicate == null ? pr : predicate.or(pr);
+//        }
+//
+//        predicate = predicate == null ? (t -> true) : predicate;
+//
+//        List<Track> result = findAll().stream().filter(predicate).toList();
+//
+//        return result;
+//    }
 
 }

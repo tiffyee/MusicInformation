@@ -22,6 +22,7 @@ public class Track {
     @NonNull
     private MediaType mediaType;
     private List<Artist> artists = new ArrayList<>();
+    private int price;
 
     public Track(){}
     public Track(String title, String album, LocalDate issueDate, Duration duration, MediaType mediaType,List<Artist> artists){
@@ -95,6 +96,9 @@ public class Track {
         Objects.requireNonNull(artist);
         this.artists.add(artist);
     }
+    public int getPrice() { return price; }
+
+    public void setPrice(int price) { this.price = price; }
 
     @Override
     public String toString() {

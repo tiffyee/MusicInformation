@@ -10,6 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/track")
@@ -21,10 +22,21 @@ public class TrackController {
     @Autowired
     private UriCreator uriCreator;
 
+//    @GetMapping
+//    public List<Track> getAllTracks(){
+//        List<Track> tracks = trackService.getALlTracks();
+//        return tracks;
+//    }
+
     @GetMapping
-    public List<Track> getAllTracks(){
-        List<Track> track = trackService.getALlTracks();
-        return track;
+    public List<Track> getAllTracks(@RequestParam Map<String,String> queryStrings){
+        List<Track> tracks = null;
+            if(queryStrings.isEmpty()){
+                tracks = trackService.getALlTracks();
+            }else{
+                tracks = trackService.getByQueryParams(queryStrings);
+            }
+        return tracks;
     }
 
     @GetMapping("/{id}")
